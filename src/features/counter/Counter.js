@@ -1,20 +1,29 @@
 import React from "react";
 import {useState} from "react";
+import {useSelector, useDispatch} from 'react-redux';
+import {decrement, increment, incrementByAmount, incrementAsync, selectCount} from "./counterSlice";
 
 function Counter() {
-    const [count, setCount] = useState(0);
-
-    const increment = () => {
-        setCount(count + 1);
-    };
-    const decrement = () => {
-        setCount(count - 1);
-    };
+    const count = useSelector(selectCount);
+    const dispatch = useDispatch();
+    const [incrementAmount, setIncrementAmount] = useState('2');
 
     return (
         <div>
-            <p>The count is {count}</p>
-            <button onClick={increment}>Increment</button> <button onClick={decrement}>Decrement</button>
+            <button onClick={() => dispatch(increment())}>Increment</button>
+            <span> {count} </span>
+            <button onClick={() => dispatch(decrement())}>Decrement</button>
+            <hr/>
+            <input
+                type={"text"}
+                value={incrementAmount}
+                onChange={e => setIncrementAmount(e.target.value)}
+                placeholder={"Set increment amount"}
+                size={'15'}
+            />&nbsp;
+            <button onClick={() => dispatch(incrementByAmount(Number(incrementAmount) || 0))}>Increment By Amount</button>
+            &nbsp;
+            <button onClick={() => dispatch(incrementAsync(Number(incrementAmount) || 0))}>Increment Async</button>
         </div>
     )
 }
