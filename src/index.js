@@ -1,16 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './essentials/App';
 import reportWebVitals from './reportWebVitals';
-import {Provider} from "react-redux";
-import store from './essentials/app/store';
+// import App from './essentials/App';
+// import {Provider} from "react-redux";
+// import store from './essentials/app/store';
+import OldStyleApp from "./oldstyle/OldStyleApp";
 
 ReactDOM.render(
   <React.StrictMode>
-      <Provider store={store}>
-          <App />
-      </Provider>
+      {/*<Provider store={store}>*/}
+      {/*    <App />*/}
+      {/*</Provider>*/}
+    <OldStyleApp/>
   </React.StrictMode>,
   document.getElementById('root')
 );
