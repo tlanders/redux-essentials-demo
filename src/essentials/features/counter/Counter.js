@@ -17,8 +17,8 @@ function Counter() {
                 type={"text"}
                 value={incrementAmount}
                 onChange={e => setIncrementAmount(e.target.value)}
-                placeholder={"Set increment amount"}
-                size={'15'}
+                placeholder={"Increment amount"}
+                size={'12'}
             />&nbsp;
             <button onClick={() => dispatch(incrementByAmount(Number(incrementAmount) || 0))}>Increment By Amount</button>
             &nbsp;

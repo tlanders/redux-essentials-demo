@@ -2,17 +2,33 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-// import App from './essentials/App';
-// import {Provider} from "react-redux";
-// import store from './essentials/app/store';
+import EssentialsApp from './essentials/EssentialsApp';
 import OldStyleApp from "./oldstyle/OldStyleApp";
+import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
+
+const DemoHome = () => (
+    <div className={"App"}>
+        <h1>Redux Demos</h1>
+        <p><Link to={"/essentials"}>Redux Essentials Basic Example</Link></p>
+        <p><Link to={"/old-style"}>Old Style ReduxExample</Link></p>
+    </div>
+)
 
 ReactDOM.render(
   <React.StrictMode>
-      {/*<Provider store={store}>*/}
-      {/*    <App />*/}
-      {/*</Provider>*/}
-    <OldStyleApp/>
+      <Router>
+          <Switch>
+              <Route path={"/essentials"} exact>
+                  <EssentialsApp />
+              </Route>
+              <Route path={"/old-style"} exact>
+                  <OldStyleApp/>
+              </Route>
+              <Route path={"/"} exact>
+                  <DemoHome/>
+              </Route>
+          </Switch>
+      </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

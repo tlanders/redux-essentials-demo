@@ -33,7 +33,7 @@ export default counterSlice.reducer;
 export const incrementAsync = amount => dispatch => {
     setTimeout(() => {
         dispatch(incrementByAmount(amount));
-    }, 1000);
+    }, 3000);
 };
 
 // The function below is called a selector and allows us to select a value from

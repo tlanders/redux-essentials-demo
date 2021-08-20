@@ -1,37 +1,65 @@
 import React from "react";
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import {decrementCount, incrementCount} from "../redux/actionTypes";
 
 class OldStyleCounter extends React.Component {
+    static propTypes = {
+        count: PropTypes.object.isRequired,
+        onIncrement: PropTypes.func.isRequired,
+        onDecrement: PropTypes.func.isRequired,
+    };
+
     constructor(props) {
         super(props);
         this.state = {
-            count: 0
+            incrementBy: '2'
         };
-        this.increment = this.increment.bind(this);
-        this.decrement = this.decrement.bind(this);
     }
 
-    increment() {
-        this.setState({
-            count: this.state.count + 1
-        });
-    }
+    incrementByAmount = () => (
+        this.props.onIncrement(Number(this.state.incrementBy) || 0)
+    );
 
-    decrement() {
-        this.setState({
-            count: this.state.count - 1
-        });
-    }
+    incrementAsync = (incBy) => (
+        setTimeout(
+            () => this.props.onIncrement(Number(incBy) || 0),
+            3000)
+    );
 
     render() {
+        const {count, onIncrement, onDecrement} = this.props
         return (
             <div>
-                <h1>Old Style Counter</h1>
-                <button onClick={this.increment}>Increment</button>&nbsp;
-                <span>{this.state.count}</span>&nbsp;
-                <button onClick={this.decrement}>Decrement</button>
+                <button onClick={() => onIncrement(1)}>Increment</button>&nbsp;
+                <span>{count.value}</span>&nbsp;
+                <button onClick={() => onDecrement(1)}>Decrement</button>
+                <hr/>
+                <input
+                    type={"text"}
+                    placeholder={"Increment amount"}
+                    name={"amount"}
+                    size={12}
+                    value={this.state.incrementBy}
+                    onChange={(e) => this.setState({incrementBy: e.target.value})}
+                />&nbsp;
+                <button onClick={this.incrementByAmount}>Increment By Amount</button>&nbsp;
+                <button onClick={() => this.incrementAsync(this.state.incrementBy)}>Increment Async</button>
             </div>
         )
     }
 }
 
-export default OldStyleCounter;
+const mapStateToProps = state => ({
+    count: state.count
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    onIncrement: (amount) => dispatch(incrementCount(amount)),
+    onDecrement: (amount) => dispatch(decrementCount(amount)),
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(OldStyleCounter);
