@@ -5,12 +5,14 @@ import reportWebVitals from './reportWebVitals';
 import EssentialsApp from './essentials/EssentialsApp';
 import OldStyleApp from "./oldstyle/OldStyleApp";
 import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
+import HooksApp from "./hooks/HooksApp";
 
 const DemoHome = () => (
     <div className={"App"}>
         <h1>Redux Demos</h1>
         <p><Link to={"/essentials"}>Redux Essentials Basic Example</Link></p>
-        <p><Link to={"/old-style"}>Old Style ReduxExample</Link></p>
+        <p><Link to={"/old-style"}>Old Style Redux Example</Link></p>
+        <p><Link to={"/hooks"}>Hooks Redux Example</Link></p>
     </div>
 )
 
@@ -23,6 +25,9 @@ ReactDOM.render(
               </Route>
               <Route path={"/old-style"} exact>
                   <OldStyleApp/>
+              </Route>
+              <Route path={"/hooks"} exact>
+                  <HooksApp/>
               </Route>
               <Route path={"/"} exact>
                   <DemoHome/>
