@@ -1,8 +1,9 @@
 import {decrementByAmount, incrementByAmount} from "../redux/hooks-actions";
 import {useDispatch, useSelector} from "react-redux";
+import {getCount} from "../redux/hooks-selectors";
 
 const HooksCounter = () => {
-    const count = useSelector(state => state.count);
+    const count = useSelector(getCount);
     const dispatch = useDispatch();
 
     return (
