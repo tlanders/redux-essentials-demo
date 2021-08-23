@@ -6,8 +6,8 @@ const intialCountState = {
 };
 
 const countReducer = (state = intialCountState, action) => {
-    console.log('countReducer - state:', state);
-    console.log('countReducer - action:', action);
+    // console.log('countReducer - state:', state);
+    // console.log('countReducer - action:', action);
     switch (action.type) {
         case(INCREMENT_BY_AMOUNT):
             return {

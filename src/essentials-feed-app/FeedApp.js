@@ -1,30 +1,23 @@
 import React from 'react'
-import {BrowserRouter as Router, Redirect, Route, Switch,} from 'react-router-dom'
 
 import {Navbar} from './app/Navbar'
 
 import './FeedApp.css'
+import {Provider} from "react-redux";
+import store from "./app/store";
+import {PostsList} from "./features/posts/PostsList";
+import {AddPostForm} from "./features/posts/AddPostForm";
 
-function App() {
+function FeedApp() {
     return (
-        <Router>
+        <Provider store={store}>
             <Navbar />
             <div className="App">
-                <Switch>
-                    <Route
-                        exact
-                        path="/feed-app"
-                        render={() => (
-                            <section>
-                                <h2>Welcome to the Redux Essentials example app!</h2>
-                            </section>
-                        )}
-                    />
-                    <Redirect to="/feed-app" />
-                </Switch>
+                <AddPostForm/>
+                <PostsList/>
             </div>
-        </Router>
+        </Provider>
     )
 }
 
-export default App
+export default FeedApp
