@@ -1,31 +1,17 @@
-import {connect} from "react-redux";
-import PropTypes from 'prop-types';
 import {decrementByAmount, incrementByAmount} from "../redux/hooks-actions";
+import {useDispatch, useSelector} from "react-redux";
 
-const HooksCounter = ({count, onIncrement, onDecrement}) => (
-    <div className={"App"}>
-        <button onClick={onIncrement}>Increment</button>&nbsp;
-        <span>{count.value}</span>&nbsp;
-        <button onClick={onDecrement}>Increment</button>
-    </div>
-);
+const HooksCounter = () => {
+    const count = useSelector(state => state.count);
+    const dispatch = useDispatch();
 
-HooksCounter.propTypes = {
-    count: PropTypes.object.isRequired,
-    onIncrement: PropTypes.func.isRequired,
-    onDecrement: PropTypes.func.isRequired
+    return (
+        <div className={"App"}>
+            <button onClick={() => dispatch(incrementByAmount(1))}>Increment</button>&nbsp;
+            <span>{count.value}</span>&nbsp;
+            <button onClick={() => dispatch(decrementByAmount(1))}>Decrement</button>
+        </div>
+    );
 };
 
-const mapStateToProps = (state) => ({
-    count: state.count
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    onIncrement: () => dispatch(incrementByAmount(1)),
-    onDecrement: () => dispatch(decrementByAmount(1))
-});
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(HooksCounter);
+export default HooksCounter;
