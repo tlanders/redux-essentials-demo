@@ -15,7 +15,7 @@ export const EditPostForm = ({match}) => {
 
     const onSaveClick = () => {
         if(title && content) {
-            dispatch(postUpdated({id, title, content}));
+            dispatch(postUpdated(id, title, content));
             history.push(`/feed-app/posts/${id}`);
         }
     }
