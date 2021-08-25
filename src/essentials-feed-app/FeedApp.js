@@ -10,6 +10,7 @@ import {AddPostForm} from "./features/posts/AddPostForm";
 import {BrowserRouter} from "react-router-dom";
 import {Redirect, Route, Switch} from "react-router";
 import {SinglePostPage} from "./features/posts/SinglePostPage";
+import {EditPostForm} from "./features/posts/EditPostForm";
 
 function FeedApp() {
     return (
@@ -26,6 +27,7 @@ function FeedApp() {
                             )}
                         />
                         <Route exact path={"/feed-app/posts/:postId"} component={SinglePostPage}/>
+                        <Route exact path={"/feed-app/posts/edit/:postId"} component={EditPostForm}/>
                         <Redirect to={"/feed-app"}/>
                     </Switch>
                 </BrowserRouter>
