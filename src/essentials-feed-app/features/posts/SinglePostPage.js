@@ -1,11 +1,13 @@
 import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
+import {PostAuthor} from "./PostAuthor";
 
 export const SinglePostPage = ({match}) => {
     const {postId} = match.params;
     console.log('single page - id=', postId);
 
     const post = useSelector(state => state.posts.find(post => post.id === postId));
+    // const author = useSelector(state => state.users.find(user => user.id === post.userId));
 
     if(!post) {
         console.log('post not found, id=' + postId);
@@ -20,6 +22,7 @@ export const SinglePostPage = ({match}) => {
         <section>
             <article className="post">
                 <h2>{post.title}</h2>
+                <PostAuthor userId={post.user}/>
                 <p className="post-content">{post.content}</p>
             </article>
             <Link to={`/feed-app/posts/edit/${post.id}`} className="button">
