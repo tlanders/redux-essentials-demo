@@ -15,9 +15,9 @@ import {EditPostForm} from "./features/posts/EditPostForm";
 function FeedApp() {
     return (
         <Provider store={store}>
-            <Navbar />
             <div className="App">
                 <BrowserRouter>
+                    <Navbar />
                     <Switch>
                         <Route path={"/feed-app"} exact render={() => (
                             <React.Fragment>
