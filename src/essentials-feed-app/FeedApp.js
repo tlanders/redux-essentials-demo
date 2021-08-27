@@ -11,8 +11,11 @@ import {BrowserRouter} from "react-router-dom";
 import {Redirect, Route, Switch} from "react-router";
 import {SinglePostPage} from "./features/posts/SinglePostPage";
 import {EditPostForm} from "./features/posts/EditPostForm";
+import {fetchUsers} from "./features/users/usersSlice";
 
 import './api/server'
+
+store.dispatch(fetchUsers());
 
 function FeedApp() {
     return (
