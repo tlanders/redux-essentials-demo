@@ -12,6 +12,8 @@ import {Redirect, Route, Switch} from "react-router";
 import {SinglePostPage} from "./features/posts/SinglePostPage";
 import {EditPostForm} from "./features/posts/EditPostForm";
 
+import './api/server'
+
 function FeedApp() {
     return (
         <Provider store={store}>

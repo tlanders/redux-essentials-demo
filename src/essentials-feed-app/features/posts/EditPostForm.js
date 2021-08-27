@@ -30,7 +30,7 @@ export const EditPostForm = ({match}) => {
                            name={"title"}
                         onChange={(e) => setTitle(e.target.value)}/>
                     <label htmlFor={"content"}>Content:</label>
-                    <input type={"text"}
+                    <textarea
                            name={"content"}
                            value={content}
                             onChange={(e) => setContent(e.target.value)}/>
