@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice, nanoid} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {client} from "../../api/client";
 
 const initialState = {
@@ -12,27 +12,19 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
     return response.posts;
 });
 
+export const addNewPost = createAsyncThunk('posts/addNewPost',
+    async initialPost => {
+        // send initial data to server
+        const response = await client.post('/fakeApi/posts', {post: initialPost});
+
+        // response contains full post including its ID
+        return response.post;
+    });
+
 const postsSlice = createSlice({
     name: 'posts',
     initialState,
     reducers: {
-        postAdded: {
-            reducer(state, action) {
-                state.posts.push(action.payload);
-            },
-            prepare(title, content, userId) {
-                return {
-                    payload: {
-                        id: nanoid(),
-                        date: new Date().toISOString(),
-                        title,
-                        content,
-                        user: userId,
-                        reactions: {}
-                    }
-                };
-            }
-        },
         postUpdated: {
             reducer(state, action) {
                 const {id, title, content} = action.payload;
@@ -71,6 +63,9 @@ const postsSlice = createSlice({
         [fetchPosts.rejected]: (state, action) => {
             state.status = 'failed';
             state.error = action.error.message;
+        },
+        [addNewPost.fulfilled]: (state, action) => {
+            state.posts.push(action.payload);
         }
     }
 });
@@ -78,5 +73,5 @@ const postsSlice = createSlice({
 export const selectAllPosts = state => state.posts.posts;
 export const selectPostById = (state, postId) => state.posts.posts.find(post => post.id === postId);
 
-export const {postAdded, postUpdated, reactionAdded} = postsSlice.actions;
+export const {postUpdated, reactionAdded} = postsSlice.actions;
 export default postsSlice.reducer;
