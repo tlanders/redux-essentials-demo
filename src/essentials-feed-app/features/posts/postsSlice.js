@@ -1,11 +1,10 @@
 import {createSlice, nanoid} from "@reduxjs/toolkit";
 
-const initialState = [
-    {id: '1', title: 'First Post!', content: 'Hello!', user: '0', date: new Date().toISOString(),
-        reactions: {}},
-    {id: '2', title: 'Second Post', content: 'More text', user: '1', date: new Date().toISOString(),
-        reactions: {}},
-];
+const initialState = {
+    posts: [],
+    state: 'idle',
+    error: null
+};
 
 const postsSlice = createSlice({
     name: 'posts',
@@ -13,7 +12,7 @@ const postsSlice = createSlice({
     reducers: {
         postAdded: {
             reducer(state, action) {
-                state.push(action.payload);
+                state.posts.push(action.payload);
             },
             prepare(title, content, userId) {
                 return {
@@ -31,7 +30,7 @@ const postsSlice = createSlice({
         postUpdated: {
             reducer(state, action) {
                 const {id, title, content} = action.payload;
-                const existingPost = state.find(post => post.id === id);
+                const existingPost = state.posts.find(post => post.id === id);
                 if(existingPost) {
                     existingPost.title = title;
                     existingPost.content = content;
@@ -45,7 +44,7 @@ const postsSlice = createSlice({
         },
         reactionAdded(state, action) {
             const {postId, reactionName} = action.payload;
-            const post = state.find(post => post.id === postId);
+            const post = state.posts.find(post => post.id === postId);
             if(post) {
                 if(post.reactions[reactionName]) {
                     post.reactions[reactionName]++;
@@ -57,8 +56,8 @@ const postsSlice = createSlice({
     }
 });
 
-export const selectAllPosts = state => state.posts;
-export const selectPostById = (state, postId) => state.posts.find(post => post.id === postId);
+export const selectAllPosts = state => state.posts.posts;
+export const selectPostById = (state, postId) => state.posts.posts.find(post => post.id === postId);
 
 export const {postAdded, postUpdated, reactionAdded} = postsSlice.actions;
 export default postsSlice.reducer;
