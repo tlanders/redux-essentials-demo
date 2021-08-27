@@ -1,7 +1,9 @@
+import React from "react";
 import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import {TimeAgo} from "./TimeAgo";
 import {PostAuthor} from "./PostAuthor";
+import {ReactionButtons} from "./ReactionButtons";
 
 export const PostsList = () => {
     const posts = useSelector(state => state.posts);
@@ -13,6 +15,7 @@ export const PostsList = () => {
             <Link to={`/feed-app/posts/${post.id}`}><h3>{post.title}</h3></Link>
             <p><PostAuthor userId={post.user}/>&nbsp;(<TimeAgo timestamp={post.date}/>)</p>
             <p className={"post-content"}>{post.content.substring(0,100)}</p>
+            <ReactionButtons post={post}/>
         </article>
     ));
 
