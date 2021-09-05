@@ -4,10 +4,23 @@ import {Link} from "react-router-dom";
 import {TimeAgo} from "./TimeAgo";
 import {PostAuthor} from "./PostAuthor";
 import {ReactionButtons} from "./ReactionButtons";
-import {fetchPosts, selectAllPosts} from "./postsSlice";
+import {fetchPosts, selectPostById, selectPostIds} from "./postsSlice";
+
+let PostExcerpt = ({postId}) => {
+    const post = useSelector(state => selectPostById(state,postId));
+
+    return (
+        <article className={"post-excerpt"} key={post.id}>
+            <Link to={`/feed-app/posts/${post.id}`}><h3>{post.title}</h3></Link>
+            <p><PostAuthor userId={post.user}/>&nbsp;(<TimeAgo timestamp={post.date}/>)</p>
+            <p className={"post-content"}>{post.content.substring(0, 100)}</p>
+            <ReactionButtons post={post}/>
+        </article>
+    );
+}
 
 export const PostsList = () => {
-    const posts = useSelector(selectAllPosts);
+    const postIds = useSelector(selectPostIds);
     const dispatch = useDispatch();
 
     const postStatus = useSelector(state => state.posts.status);
@@ -29,15 +42,8 @@ export const PostsList = () => {
             <div>{error}</div>
         );
     } else if(postStatus === 'succeeded') {
-        const sortedPosts = posts.slice().sort((p1, p2) => p2.date.localeCompare(p1.date));
-
-        content = sortedPosts.map(post => (
-            <article className={"post-excerpt"} key={post.id}>
-                <Link to={`/feed-app/posts/${post.id}`}><h3>{post.title}</h3></Link>
-                <p><PostAuthor userId={post.user}/>&nbsp;(<TimeAgo timestamp={post.date}/>)</p>
-                <p className={"post-content"}>{post.content.substring(0, 100)}</p>
-                <ReactionButtons post={post}/>
-            </article>
+        content = postIds.map(postId => (
+            <PostExcerpt key={postId} postId={postId}/>
         ));
     }
 
