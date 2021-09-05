@@ -18,7 +18,7 @@ export const AddPostForm = () => {
     const onContentChanged = e => setContent(e.target.value);
     const onUserChanged = e => setUserId(e.target.value);
 
-    const canSave = [title, content, userId].every(Boolean) && addRequestStatus == 'idle';
+    const canSave = [title, content, userId].every(Boolean) && addRequestStatus === 'idle';
 
     const onSavePostClicked = async () => {
         if(canSave) {

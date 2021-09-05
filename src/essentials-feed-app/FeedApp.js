@@ -12,8 +12,10 @@ import {Redirect, Route, Switch} from "react-router";
 import {SinglePostPage} from "./features/posts/SinglePostPage";
 import {EditPostForm} from "./features/posts/EditPostForm";
 import {fetchUsers} from "./features/users/usersSlice";
+import {UsersList} from "./features/users/UsersList";
 
 import './api/server'
+import {UserPage} from "./features/users/UserPage";
 
 store.dispatch(fetchUsers());
 
@@ -25,14 +27,17 @@ function FeedApp() {
                     <Navbar />
                     <Switch>
                         <Route path={"/feed-app"} exact render={() => (
-                            <React.Fragment>
+                            <>
                                 <AddPostForm />
                                 <PostsList />
-                            </React.Fragment>
+                            </>
                             )}
                         />
                         <Route exact path={"/feed-app/posts/:postId"} component={SinglePostPage}/>
                         <Route exact path={"/feed-app/posts/edit/:postId"} component={EditPostForm}/>
+
+                        <Route exact path={"/feed-app/users"} component={UsersList}/>
+                        <Route exact path={"/feed-app/users/:userId"} component={UserPage}/>
                         <Redirect to={"/feed-app"}/>
                     </Switch>
                 </BrowserRouter>
