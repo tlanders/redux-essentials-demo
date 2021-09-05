@@ -16,6 +16,7 @@ import {UsersList} from "./features/users/UsersList";
 
 import './api/server'
 import {UserPage} from "./features/users/UserPage";
+import {NotificationsList} from "./features/notifications/NotificationsList";
 
 store.dispatch(fetchUsers());
 
@@ -35,9 +36,9 @@ function FeedApp() {
                         />
                         <Route exact path={"/feed-app/posts/:postId"} component={SinglePostPage}/>
                         <Route exact path={"/feed-app/posts/edit/:postId"} component={EditPostForm}/>
-
                         <Route exact path={"/feed-app/users"} component={UsersList}/>
                         <Route exact path={"/feed-app/users/:userId"} component={UserPage}/>
+                        <Route exact path={"/feed-app/notifications"} component={NotificationsList}/>
                         <Redirect to={"/feed-app"}/>
                     </Switch>
                 </BrowserRouter>
